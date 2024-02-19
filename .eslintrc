@@ -1,0 +1,15 @@
+{
+  "parserOptions": {
+    "sourceType": "script"
+  },
+  "extends": ["standard", "prettier"],
+  "plugins": ["prettier", "jest"],
+  "env": {
+    "node": true,
+    "es6": true,
+    "jest": true
+  },
+  "rules": {
+    "prettier/prettier": "error"
+  }
+}
