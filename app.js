@@ -3,7 +3,8 @@ const {
   pausa,
   readInput,
   selectItem,
-  confirmation
+  confirmation,
+  checklistCompleteTasks
 } = require('./helpers/inquirer')
 const { writeFile, load } = require('./helpers/file_handler')
 const Tasks = require('./models/tasks')
@@ -28,16 +29,20 @@ const main = async () => {
         tasks.newTask(desc)
         break
       case 2:
-        if (tasks.countTasks > 0) {
+        if (tasks.countTasks() > 0) {
           tasks.listTasks()
         } else {
           console.log(`No existen tareas para listar`.red)
         }
         break
+      case 3:
+        const ids = await checklistCompleteTasks(tasks.listadoArr)
+        tasks.toggleCompletedTasks(ids)
+        break
       case 4:
-        if (tasks.countTasks > 0) {
+        if (tasks.countTasks() > 0) {
           const id = await selectItem(tasks.listadoArr)
-          if (id !== 0) {
+          if (id !== '0') {
             const ok = await confirmation('Está seguro?')
             if (ok) {
               tasks.deleteTask(id)

@@ -4,3 +4,5 @@ npm-debug.log
 .nyc
 .env
 .DS_Store
+data/tasks_file.json
+data/tasks_file.json

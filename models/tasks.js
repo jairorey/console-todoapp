@@ -42,6 +42,25 @@ class Tasks {
       delete this._list[id]
     }
   }
+
+  countTasks() {
+    return this.listadoArr.length
+  }
+
+  toggleCompletedTasks(ids = []) {
+    ids.forEach((id) => {
+      const task = this._list[id]
+      if (!task.done) {
+        task.done = new Date().toISOString()
+      }
+    })
+
+    this.listadoArr.forEach((task) => {
+      if (!ids.includes(task.id)) {
+        this._list[task.id].done = null
+      }
+    })
+  }
 }
 
 module.exports = Tasks

@@ -98,9 +98,14 @@ const formattedList = async (listArr = []) => {
 const selectItem = async (arr = []) => {
   const choices = arr.map((item, idx) => {
     return {
-      value: `${item.id}`,
+      value: item.id,
       name: `${idx + 1}. ${item.desc}`
     }
+  })
+
+  choices.unshift({
+    value: '0',
+    name: '0.'.green + ' Cancelar'
   })
 
   const items = [
@@ -127,11 +132,33 @@ const confirmation = async (message) => {
   return confirm
 }
 
+const checklistCompleteTasks = async (arr = []) => {
+  const choices = arr.map((item, idx) => {
+    return {
+      value: item.id,
+      name: `${idx + 1}. ${item.desc}`,
+      checked: item.done ? true : false
+    }
+  })
+
+  const items = [
+    {
+      type: 'checkbox',
+      name: 'ids',
+      message: 'selecciones',
+      choices
+    }
+  ]
+  const { ids } = await inquirer.prompt(items)
+  return ids
+}
+
 module.exports = {
   inquirerMenu,
   pausa,
   readInput,
   formattedList,
   selectItem,
-  confirmation
+  confirmation,
+  checklistCompleteTasks
 }
